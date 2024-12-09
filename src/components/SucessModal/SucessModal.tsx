@@ -2,24 +2,23 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ButtonClose, ContainerBox, MinuteText, TextSucess, TitleSucess } from './styles';
 import { Box } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export function SucessModal() {
+	const router = useRouter();
 	const [totalTime, setTotalTime] = useState(0);
 
 	useEffect(() => {
 		let totalSeconds = 0;
-
 		Object.keys(localStorage).forEach((key) => {
 			if (key.startsWith('timer-')) {
 				const timeSpent = parseInt(localStorage.getItem(key) || '0', 10);
 				totalSeconds += 1500 - timeSpent;
 			}
 		});
-
 		setTotalTime(totalSeconds);
 	}, []);
 
-	// Converter segundos para o formato de minutos
 	const formatTime = (seconds: number) => {
 		const minutes = Math.floor(seconds / 60);
 		return `${minutes}m `;
@@ -57,7 +56,7 @@ export function SucessModal() {
 				</MinuteText>
 			</Box>
 			<Box>
-				<ButtonClose href='/'>
+				<ButtonClose onClick={() => router.push('/?selectedTab=answers')}>
 					<span className='button__text'>Valeu!</span>
 				</ButtonClose>
 			</Box>

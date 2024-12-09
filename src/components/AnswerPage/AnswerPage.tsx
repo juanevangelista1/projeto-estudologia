@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Modal } from '@mui/material';
 import questions from '../../data/questions.json';
 import { TextAnswerArea } from '../common/TextAnswerArea/TextAnswerArea';
 import { SendAnswerButton } from '../common/SendAnswerButton/SendAnswerButton';
 import { Timer } from '../common/Timer/Timer';
 import { Header } from '../common/Header';
 import Head from 'next/head';
+
 import {
 	AnswerPageTitle,
 	AnswerSubTitle,
@@ -19,6 +20,7 @@ import {
 	SectionTop,
 	SectionTopWrapper,
 } from './styles';
+import { SucessModal } from '../SucessModal/SucessModal';
 
 export function AnswerPage() {
 	const router = useRouter();
@@ -27,8 +29,15 @@ export function AnswerPage() {
 	const currentIndex = questions.findIndex((q) => q.id === Number(id));
 	const question = questions[currentIndex];
 
-	// Estado para armazenar a resposta do usuário
 	const [answer, setAnswer] = useState<string>('');
+	const [showModal, setShowModal] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (question) {
+			const savedAnswer = localStorage.getItem(`answer-${question.id}`);
+			setAnswer(savedAnswer || '');
+		}
+	}, [question]);
 
 	const handleNavigation = (direction: 'next' | 'previous') => {
 		if (direction === 'next' && currentIndex < questions.length - 1) {
@@ -38,12 +47,17 @@ export function AnswerPage() {
 		}
 	};
 
+	const handleSaveAnswer = () => {
+		if (question) {
+			localStorage.setItem(`answer-${question.id}`, answer);
+		}
+	};
+
 	if (!question) {
 		return (
 			<>
 				<Header />
 				<Box sx={{ padding: '20px' }}>
-					<Typography variant='h5'>Questão não encontrada</Typography>
 					<Button
 						variant='contained'
 						onClick={() => router.push('/')}>
@@ -76,24 +90,19 @@ export function AnswerPage() {
 			<Header isAnswerPage />
 			<SectionTop>
 				<SectionTopWrapper>
-					<div className='title__div'>
-						<Image
-							src='/Icons/pencil-Icon.svg'
-							alt='Ícone do lápis'
-							width={18}
-							height={18}
-						/>
-						<AnswerPageTitle
-							sx={{ margin: '0 0 0 14px' }}
-							gutterBottom>
-							{question.titleCard}
-						</AnswerPageTitle>
-					</div>
-
 					<Timer questionId={question.id} />
 				</SectionTopWrapper>
 			</SectionTop>
 			<ContainerBox>
+				<div className='title__div'>
+					<Image
+						src='/Icons/pencil-Icon.svg'
+						alt='Ícone do lápis'
+						width={18}
+						height={18}
+					/>
+					<AnswerPageTitle gutterBottom>{question.titleCard}</AnswerPageTitle>
+				</div>
 				<SectionMiddleWrapper>
 					<AnswerSubTitle
 						variant='h4'
@@ -102,7 +111,7 @@ export function AnswerPage() {
 					</AnswerSubTitle>
 					<Typography
 						variant='body1'
-						sx={{ color: '#000000' }}
+						sx={{ color: '#000000', fontFamily: 'var(--font-chivo), sans-serif' }}
 						gutterBottom>
 						{question.body}
 					</Typography>
@@ -129,9 +138,12 @@ export function AnswerPage() {
 						<ButtonPrevious
 							variant='outlined'
 							sx={{
-								display: currentIndex === 0 ? 'none' : 'inline-flex', // Esconde o botão se for a primeira questão
+								display: currentIndex === 0 ? 'none' : 'inline-flex',
 							}}
-							onClick={() => handleNavigation('previous')}>
+							onClick={() => {
+								handleSaveAnswer();
+								handleNavigation('previous');
+							}}>
 							<Image
 								src='/Icons/arrow-icon.svg'
 								alt='Seta anterior'
@@ -144,9 +156,12 @@ export function AnswerPage() {
 						<ButtonNext
 							variant='outlined'
 							sx={{
-								display: currentIndex === questions.length - 1 ? 'none' : 'inline-flex', // Esconde o botão se for a última questão
+								display: currentIndex === questions.length - 1 ? 'none' : 'inline-flex',
 							}}
-							onClick={() => handleNavigation('next')}>
+							onClick={() => {
+								handleSaveAnswer();
+								handleNavigation('next');
+							}}>
 							Próxima
 							<Image
 								src='/Icons/arrow-icon.svg'
@@ -159,6 +174,12 @@ export function AnswerPage() {
 					</div>
 				</SectionBottomContainer>
 			</ContainerBox>
+
+			<Modal
+				open={showModal}
+				onClose={() => setShowModal(false)}>
+				<SucessModal />
+			</Modal>
 		</>
 	);
 }

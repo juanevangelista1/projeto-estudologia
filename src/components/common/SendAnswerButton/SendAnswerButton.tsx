@@ -1,15 +1,15 @@
 import React from 'react';
-import { useRouter } from 'next/router'; // Importar o roteamento do Next.js
+import { useRouter } from 'next/router';
 import { StyledButton } from './styles';
 
 interface SendAnswerButtonProps {
 	answer: string;
 	questionId: number;
-	isLastQuestion: boolean; // Nova propriedade para verificar se é a última pergunta
+	isLastQuestion: boolean;
 }
 
 export function SendAnswerButton({ answer, questionId, isLastQuestion }: SendAnswerButtonProps) {
-	const router = useRouter(); // Inicializar o roteador do Next.js
+	const router = useRouter();
 
 	const handleSaveAnswer = () => {
 		if (!answer) {
@@ -29,8 +29,7 @@ export function SendAnswerButton({ answer, questionId, isLastQuestion }: SendAns
 		localStorage.setItem('answers', JSON.stringify(updatedAnswers));
 
 		if (isLastQuestion) {
-			// Redirecionar para a tela de sucesso
-			router.push('/success');
+			router.push('/success?tab=answers');
 		} else {
 			alert('Resposta salva com sucesso!');
 		}

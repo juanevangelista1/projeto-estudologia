@@ -26,10 +26,13 @@ export function AnswerListToggle({ cadernos, onCadernoChange }: AnswerListToggle
 					<Image
 						src='/Icons/pencil-Icon.svg'
 						alt='Ícone do lápis'
-						width={16}
-						height={16}
+						width={19}
+						height={19}
 					/>
-					<Typography>{caderno.title}</Typography>
+					<Typography
+						sx={{ fontFamily: 'var(--font-chivo), sans-serif', fontSize: '18px', fontWeight: 'bold' }}>
+						{caderno.title}
+					</Typography>
 				</StyledToggleItem>
 			))}
 		</StyledToggleContainer>

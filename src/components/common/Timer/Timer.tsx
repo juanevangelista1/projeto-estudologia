@@ -1,57 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Typography } from '@mui/material';
 import Image from 'next/image';
-
-// Estilizando o contêiner do Timer
-const StyledTimerContainer = styled(Box)(() => ({
-	display: 'flex',
-	alignItems: 'center',
-	gap: '8px',
-	padding: '8px 16px',
-	border: '1px solid #A5B4CB',
-	borderRadius: '8px',
-	backgroundColor: '#FFFFFF',
-	fontSize: '16px',
-	fontWeight: 'bold',
-	color: '#5A6170',
-}));
+import { StyledTimerContainer } from './styles';
 
 interface TimerProps {
-	questionId: number; // Identificador único para cada questão
+	questionId: number;
 }
 
 export function Timer({ questionId }: TimerProps) {
-	const initialTime = 1500; // 25 minutos em segundos
-	const storageKey = `timer-${questionId}`; // Chave única para cada questão
+	const initialTime = 1500;
+	const storageKey = `timer-${questionId}`;
 
 	const [timeLeft, setTimeLeft] = useState<number>(initialTime);
 
 	useEffect(() => {
-		// Recuperar o tempo restante do localStorage ao carregar a página
 		const savedTime = localStorage.getItem(storageKey);
 		if (savedTime) {
 			setTimeLeft(parseInt(savedTime, 10));
 		}
 
-		// Configurar o intervalo para decrementar o tempo
 		const interval = setInterval(() => {
 			setTimeLeft((prev) => {
 				if (prev <= 1) {
-					clearInterval(interval); // Parar o timer quando chegar a 0
-					return 0;
+					localStorage.setItem(storageKey, initialTime.toString());
+					return initialTime;
 				}
 				const newTime = prev - 1;
-				localStorage.setItem(storageKey, newTime.toString()); // Salvar o novo tempo no localStorage
+				localStorage.setItem(storageKey, newTime.toString());
 				return newTime;
 			});
 		}, 1000);
 
-		// Limpar o intervalo ao sair da página
 		return () => clearInterval(interval);
-	}, [storageKey]);
+	}, [storageKey, initialTime]);
 
-	// Formatar o tempo no formato MM:SS
 	const formatTime = (time: number): string => {
 		const minutes = Math.floor(time / 60);
 		const seconds = time % 60;
@@ -66,7 +48,9 @@ export function Timer({ questionId }: TimerProps) {
 				width={24}
 				height={24}
 			/>
-			<Typography>{formatTime(timeLeft)}</Typography>
+			<Typography sx={{ fontFamily: 'var(--font-chivo), sans-serif' }}>
+				{formatTime(timeLeft)}
+			</Typography>
 		</StyledTimerContainer>
 	);
 }

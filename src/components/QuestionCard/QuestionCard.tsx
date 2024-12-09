@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import Image from 'next/image';
-import { Box } from '@mui/material';
 import questions from '../../data/questions.json';
 import { CustomButton } from '../common/AnswerButton/AnswerButton';
 import { FlagQuestion } from '../common/FlagQuestion/FlagQuestion';
-import { StyledCard, StyledCardContent, StyledTextCard, StyledTitleCard } from './StyledCard';
+import {
+	CardContainer,
+	StyledCard,
+	StyledCardContent,
+	StyledTextCard,
+	StyledTitleCard,
+} from './StyledCard';
 import { useRouter } from 'next/router';
 
 interface Question {
@@ -28,14 +33,13 @@ export function QuestionCard({ showUnanswered, answeredQuestions }: QuestionCard
 	};
 
 	return (
-		<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+		<CardContainer>
 			{questions
 				.filter((question) => {
-					// Aplica o filtro baseado no estado do checkbox
 					if (showUnanswered) {
 						return !answeredQuestions.includes(question.id);
 					}
-					return true; // Exibe todas as questões se o filtro estiver desativado
+					return true;
 				})
 				.map((question) => (
 					<StyledCard key={question.id}>
@@ -54,7 +58,7 @@ export function QuestionCard({ showUnanswered, answeredQuestions }: QuestionCard
 								sx={{ fontWeight: 'bold' }}>
 								{question.titleCard}
 							</StyledTitleCard>
-							{/* Passa o estado dinâmico para o FlagQuestion */}
+
 							<FlagQuestion isAnswered={answeredQuestions.includes(question.id)} />
 							<StyledTextCard
 								gutterBottom
@@ -63,11 +67,11 @@ export function QuestionCard({ showUnanswered, answeredQuestions }: QuestionCard
 							</StyledTextCard>
 							<CustomButton
 								onClick={() => handleNavigateToAnswer(question.id)}
-								isAnswered={answeredQuestions.includes(question.id)} // Verifica se a pergunta já foi respondida
+								isAnswered={answeredQuestions.includes(question.id)}
 							/>
 						</StyledCardContent>
 					</StyledCard>
 				))}
-		</Box>
+		</CardContainer>
 	);
 }

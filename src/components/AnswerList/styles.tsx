@@ -1,8 +1,14 @@
 import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+export const BoxContainer = styled(Box)(() => ({
+	maxWidth: '970px',
+	margin: '40px auto',
+	gap: '24px',
+}));
+
 export const StyledContainer = styled(Box)(() => ({
-	maxWidth: '840px',
+	Width: '100%',
 	margin: '40px auto',
 	display: 'flex',
 	flexDirection: 'column',
@@ -10,19 +16,24 @@ export const StyledContainer = styled(Box)(() => ({
 }));
 
 export const StyledQuestionTitle = styled(Typography)(() => ({
-	fontSize: '18px',
+	fontSize: '16px',
 	fontWeight: 'bold',
-	color: '#141736',
+	color: '#000',
+	fontFamily: 'var(--font-chivo), sans-serif',
+	marginBottom: '20px',
 }));
 
 export const StyledAnswerText = styled(Typography)(() => ({
-	fontSize: '16px',
+	fontSize: '13px',
 	fontWeight: '400',
 	color: '#7D8DA6',
+	fontFamily: 'var(--font-chivo), sans-serif',
+	marginBottom: '20px',
 }));
 
 export const StyledSeparator = styled(Box)(() => ({
 	height: '1px',
 	backgroundColor: '#DFE5F1',
 	width: '100%',
+	margin: '45px 0 0 0',
 }));

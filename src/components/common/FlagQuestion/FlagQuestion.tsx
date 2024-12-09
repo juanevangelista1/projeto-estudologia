@@ -9,10 +9,11 @@ export function FlagQuestion({ isAnswered }: FlagQuestionProps) {
 	return (
 		<StyledBox
 			sx={{
-				display: 'inline-flex',
+				display: 'flex',
 				alignItems: 'center',
 				padding: '4px 8px',
 				borderRadius: '8px',
+				justifyContent: 'center',
 				backgroundColor: isAnswered ? '#e1f5d5' : '#fff8e4',
 			}}>
 			<StyledText

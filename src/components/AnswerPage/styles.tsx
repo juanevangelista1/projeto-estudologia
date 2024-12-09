@@ -6,7 +6,16 @@ export const ContainerBox = styled(Box)(() => ({
 	width: '100%',
 	display: 'flex',
 	flexDirection: 'column',
-	margin: '72px auto',
+	margin: '30px auto',
+	position: 'relative',
+
+	'.title__div': {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		gap: '10px',
+		marginBottom: '72px',
+	},
 }));
 
 export const SectionTop = styled(Box)(() => ({
@@ -19,17 +28,9 @@ export const SectionTop = styled(Box)(() => ({
 }));
 
 export const SectionTopWrapper = styled(Box)(() => ({
-	display: 'flex',
-	maxWidth: '720px',
-	width: '100%',
-	alignItems: 'center',
-	justifyContent: 'space-between',
-
-	'.title__div': {
-		display: 'flex',
-		alignItems: 'center',
-		gap: '10px',
-	},
+	position: 'absolute',
+	top: '90px',
+	right: '195px',
 }));
 
 export const SectionMiddleWrapper = styled(Box)(() => ({
@@ -41,14 +42,13 @@ export const SectionBottomContainer = styled(Box)(() => ({
 	borderTop: '1px solid #F3F3F3',
 	maxWidth: '750px',
 	width: '100%',
+	marginBottom: '60px',
 
 	'.button__wrapper': {
 		maxWidth: '750px',
 		width: '100%',
 		margin: '25px 0 0 0',
-		display: 'flex',
-		justifyContent: 'end',
-		gap: '80%',
+		position: 'relative',
 	},
 }));
 
@@ -58,6 +58,7 @@ export const AnswerPageTitle = styled(Typography)(() => ({
 	fontWeight: 'bold',
 	lineHeight: '1',
 	margin: '0',
+	fontFamily: 'var(--font-chivo), sans-serif',
 }));
 
 export const AnswerSubTitle = styled(Typography)(() => ({
@@ -65,6 +66,7 @@ export const AnswerSubTitle = styled(Typography)(() => ({
 	fontSize: '16px',
 	fontWeight: 'bold',
 	margin: '0 0 15px 0',
+	fontFamily: 'var(--font-chivo), sans-serif',
 }));
 
 export const ButtonNext = styled(Button)(() => ({
@@ -74,6 +76,8 @@ export const ButtonNext = styled(Button)(() => ({
 	alignItems: 'center',
 	gap: '8px',
 	textTransform: 'none',
+	position: 'absolute',
+	right: '0',
 }));
 
 export const ButtonPrevious = styled(Button)(() => ({
@@ -83,4 +87,6 @@ export const ButtonPrevious = styled(Button)(() => ({
 	alignItems: 'center',
 	gap: '8px',
 	textTransform: 'none',
+	position: 'absolute',
+	left: '0',
 }));

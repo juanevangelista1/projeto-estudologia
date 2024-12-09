@@ -1,17 +1,20 @@
 import { styled } from '@mui/material/styles';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 
-// Estilizando o Card
-
-// Estilizando o Card
-export const StyledCard = styled(Card)(({ theme }) => ({
-	minWidth: 300,
+export const CardContainer = styled(Box)(() => ({
+	maxWidth: '970px',
 	width: '100%',
-	minHeight: 240,
+	display: 'grid',
+	gridTemplateColumns: '1fr 1fr 1fr',
+	gap: '30px',
+}));
+
+export const StyledCard = styled(Card)(({ theme }) => ({
+	maxWidth: '300px',
+	width: '100%',
+	maxHeight: '250px',
 	border: '1px solid #DFE5F1',
-	padding: '16px',
-	borderRadius: 30,
-	margin: '16px',
+	borderRadius: '30px',
 	transition: 'transform 0.2s ease-in-out',
 
 	'&:hover': {
@@ -23,9 +26,8 @@ export const StyledCard = styled(Card)(({ theme }) => ({
 	},
 }));
 
-// Estilizando o CardContent
 export const StyledCardContent = styled(CardContent)(() => ({
-	padding: '16px',
+	padding: '30px',
 	display: 'flex',
 	flexDirection: 'column',
 }));

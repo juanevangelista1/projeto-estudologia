@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Box } from '@mui/material';
 import { QuestionCard } from './QuestionCard/QuestionCard';
 import { FilterCheckbox } from './common/CheckBox/CheckBox';
 import { AnswerList } from './AnswerList/AnswerList';
 import { SelectedButton } from './common/SelectedButton';
+import { HomeContainer } from './styles';
 
 export function Home() {
-	const [selectedTab, setSelectedTab] = useState<'questions' | 'answers'>('questions');
-	const [showUnanswered, setShowUnanswered] = useState(false); // Controle do filtro
-	const [answeredQuestions, setAnsweredQuestions] = useState<number[]>([]); // Inicializa com uma lista vazia
+	const router = useRouter();
+	const { selectedTab } = router.query;
 
-	// Use `useEffect` para acessar o `localStorage` apenas no cliente
+	const [currentTab, setCurrentTab] = useState<'questions' | 'answers'>('questions');
+	const [showUnanswered, setShowUnanswered] = useState(false);
+	const [answeredQuestions, setAnsweredQuestions] = useState<number[]>([]);
+
+	useEffect(() => {
+		if (!selectedTab) {
+			router.replace('/?selectedTab=questions', undefined, { shallow: true });
+		}
+	}, [router, selectedTab]);
+
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			const storedAnswers = JSON.parse(localStorage.getItem('answers') || '[]');
@@ -19,23 +29,31 @@ export function Home() {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (selectedTab && ['questions', 'answers'].includes(selectedTab as string)) {
+			setCurrentTab(selectedTab as 'questions' | 'answers');
+		}
+	}, [selectedTab]);
+
+	const handleTabChange = (tab: 'questions' | 'answers') => {
+		setCurrentTab(tab);
+		router.push(`/?selectedTab=${tab}`, undefined, { shallow: true });
+	};
+
 	return (
-		<Box sx={{ padding: '20px' }}>
-			{/* Componente de alternância de abas */}
+		<HomeContainer>
 			<SelectedButton
-				selectedTab={selectedTab}
-				onTabChange={setSelectedTab}
+				selectedTab={currentTab}
+				onTabChange={handleTabChange}
 			/>
 
-			{selectedTab === 'questions' && (
+			{currentTab === 'questions' && (
 				<>
-					{/* Checkbox para filtrar questões não respondidas */}
 					<FilterCheckbox
 						showUnanswered={showUnanswered}
 						setShowUnanswered={setShowUnanswered}
 					/>
-					<Box sx={{ display: 'flex', margin: '20px auto', maxWidth: '1240px' }}>
-						{/* Renderiza o QuestionCard com base no filtro */}
+					<Box sx={{ maxWidth: '970px' }}>
 						<QuestionCard
 							showUnanswered={showUnanswered}
 							answeredQuestions={answeredQuestions}
@@ -44,11 +62,11 @@ export function Home() {
 				</>
 			)}
 
-			{selectedTab === 'answers' && (
+			{currentTab === 'answers' && (
 				<Box sx={{ padding: '20px', marginTop: '20px' }}>
 					<AnswerList />
 				</Box>
 			)}
-		</Box>
+		</HomeContainer>
 	);
 }

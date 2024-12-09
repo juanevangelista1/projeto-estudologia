@@ -33,8 +33,8 @@ export const TitleSucess = styled(Typography)(() => ({
 	fontSize: '30px',
 	fontWeight: 'bold',
 	background: 'linear-gradient(90deg, #502DB3 0%, #5D2EE3 100%)',
-	WebkitBackgroundClip: 'text', // Define o gradiente como "recorte" do texto
-	WebkitTextFillColor: 'transparent', // Torna o fundo do texto transparente
+	WebkitBackgroundClip: 'text',
+	WebkitTextFillColor: 'transparent',
 }));
 
 export const TextSucess = styled(Typography)(() => ({

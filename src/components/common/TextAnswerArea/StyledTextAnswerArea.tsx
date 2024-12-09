@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Box, TextareaAutosize, Typography } from '@mui/material';
 
-// Contêiner principal da área de texto
 export const StyledBox = styled(Box)(() => ({
 	display: 'flex',
 	flexDirection: 'column',
@@ -10,17 +9,15 @@ export const StyledBox = styled(Box)(() => ({
 	maxWidth: '750px',
 }));
 
-// Contêiner para a área de texto e contador
 export const StyledTextareaContainer = styled(Box)(() => ({
 	position: 'relative',
 	width: '100%',
 }));
 
-// Estilizando a área de texto
 export const StyledTextarea = styled(TextareaAutosize)(() => ({
 	width: '100%',
 	maxWidth: '710px',
-	minHeight: '120px',
+	minHeight: '195px',
 	border: 'none',
 	outline: 'none',
 	resize: 'none',
@@ -33,11 +30,10 @@ export const StyledTextarea = styled(TextareaAutosize)(() => ({
 	boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
 }));
 
-// Estilizando o contador de caracteres
 export const StyledCharacterCount = styled(Typography)(() => ({
 	position: 'absolute',
 	top: '20px',
-	right: '25px',
+	right: '55px',
 	fontSize: '12px',
 	color: '#9E9E9E',
 }));

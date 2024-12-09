@@ -1,14 +1,20 @@
+
+
+:root {
+  font-family: 'Chivo', sans-serif;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-chivo), sans-serif;
+    font-family: 'Chivo', sans-serif;
   }
 
   html, body {
-    font-family: var(--font-chivo), sans-serif; 
+    font-family: 'Chivo', sans-serif;
   }
 
-  button, input, textarea {
-    font-family: inherit; 
+  a {
+    text-decoration: none;
   }

@@ -1,7 +1,6 @@
 import { Box, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-// Estilizando o contêiner principal
 export const StyledBox = styled(Box)(() => ({
 	display: 'flex',
 	gap: '32px',
@@ -10,7 +9,6 @@ export const StyledBox = styled(Box)(() => ({
 	paddingBottom: '8px',
 }));
 
-// Estilizando os botões
 export const StyledTexButton = styled(Button)(() => ({
 	textTransform: 'none',
 	fontWeight: 'bold',
@@ -20,7 +18,7 @@ export const StyledTexButton = styled(Button)(() => ({
 	borderRadius: 0,
 	padding: 0,
 	'&.selected': {
-		color: '#502DB3', // Roxo para o botão selecionado
+		color: '#502DB3',
 		position: 'relative',
 		'&:after': {
 			content: '""',
@@ -30,7 +28,7 @@ export const StyledTexButton = styled(Button)(() => ({
 			right: 0,
 			height: '1px',
 			borderRadius: '50%',
-			backgroundColor: '#502DB3', // Linha embaixo do botão selecionado
+			backgroundColor: '#502DB3',
 		},
 	},
 }));

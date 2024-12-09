@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "titleCard": "Caderno de questões 1",
+    "title": "Pergunta 1/3",
+    "questionNumber": "10 questões",
+    "body": [
+      "Explique como TypeScript aprimora o JavaScript, mencionando a introdução de tipagem estática. Cite também benefícios como a detecção de erros em tempo de desenvolvimento e suporte a features modernas de ES6+."
+    ]
+  },
+  {
+    "id": 2,
+    "titleCard": "Caderno de questões 2",
+    "title": "Pergunta 2/3",
+    "questionNumber": "10 questões",
+    "body": [
+      "Como você define tipos em variáveis no TypeScript? Dê um exemplo prático de como declarar uma variável com um tipo específico (como 'string' ou 'number') e explique o que acontece se tentarmos atribuir um valor de tipo diferente."
+    ]
+  },
+  {
+    "id": 3,
+    "titleCard": "Caderno de questões 3",
+    "title": "Pergunta 3/3",
+    "questionNumber": "6 questões",
+    "body": [
+      "O que são interfaces no TypeScript e como elas são usadas? Explique o conceito de interface para definir a forma de objetos, mostrando como ela ajuda a estruturar e validar objetos no código. Forneça um exemplo simples de sua utilização."
+    ]
+  }
+]
